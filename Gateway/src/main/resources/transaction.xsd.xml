@@ -1,0 +1,3 @@
+<loc:getTransactionRequest xmlns:loc="http://localhost:8081">
+  <loc:name>string</loc:name>
+</loc:getTransactionRequest>

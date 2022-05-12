@@ -18,8 +18,4 @@ public class Compte {
     private String numero;
     private int solde;
     private boolean decouvert;
-    @OneToMany(mappedBy = "cbenef")
-    private List<Transaction> transactionsBenef;
-    @OneToMany(mappedBy = "cemett")
-    private List<Transaction> transactionsEmett;
 }

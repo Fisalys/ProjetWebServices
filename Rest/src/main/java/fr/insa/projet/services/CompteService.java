@@ -1,6 +1,7 @@
 package fr.insa.projet.services;
 
 import fr.insa.projet.dto.CompteDTO;
+import fr.insa.projet.exeptions.NotValidExeption;
 import fr.insa.projet.exeptions.ProcessExeption;
 import fr.insa.projet.models.Compte;
 import fr.insa.projet.repositories.CompteRepository;
@@ -39,6 +40,22 @@ public class CompteService extends CommonService {
         CompteToCreate.setNumero(String.valueOf(c.getId()));
 
         return CompteToCreate;
+    }
+
+    // permet de modifier le solde d'un compte
+    public CompteDTO modifierCompte(CompteDTO compteDTO) throws ProcessExeption {
+        Compte compte = compteRepository.findCompteByNumero(compteDTO.getNumero());
+        compte.setSolde(compteDTO.getSolde());
+        compteRepository.save(compte);
+        return compteDTO;
+    }
+
+    public void validateCompteModel(CompteDTO compteToCreate) throws NotValidExeption
+    {
+        NotValidExeption e = new NotValidExeption();
+        if(compteToCreate == null) e.getMessages().add("CompteModel : Null");
+        else if(compteToCreate.getSolde() < 0) e.getMessages().add("solde incorrect");
+        if(!e.getMessages().isEmpty()) throw e;
     }
 }
 

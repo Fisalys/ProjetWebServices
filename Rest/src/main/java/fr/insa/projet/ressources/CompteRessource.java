@@ -5,10 +5,7 @@ import fr.insa.projet.exeptions.ProcessExeption;
 import fr.insa.projet.services.CommonService;
 import fr.insa.projet.services.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("comptes")
@@ -21,4 +18,11 @@ public class CompteRessource extends CommonService {
         compteService.validateCompteModel(compteDTO);
         return compteService.saveCompte(compteDTO);
     }
+
+    @GetMapping("solde/{id}")
+    public Integer getSolde(@PathVariable("id") Integer id) throws ProcessExeption {
+        return compteService.getSoldeByCompte(id);
+    }
+
+
 }

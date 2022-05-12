@@ -31,13 +31,19 @@ public class CompteService extends CommonService {
         return compte;
     }
 
+    public int getSoldeByCompte(Integer id) throws ProcessExeption {
+        Compte compte = getCompteById(id);
+        return compte.getSolde();
+    }
+
     public CompteDTO saveCompte(CompteDTO CompteToCreate) throws ProcessExeption {
         Compte c = Compte.builder()
                 .solde(CompteToCreate.getSolde())
+                .numero(CompteToCreate.getNumero())
                 .decouvert(false)
                 .build();
         this.compteRepository.save(c);
-        CompteToCreate.setNumero(String.valueOf(c.getId()));
+        CompteToCreate.setId(c.getId());
 
         return CompteToCreate;
     }
@@ -54,8 +60,11 @@ public class CompteService extends CommonService {
     {
         NotValidExeption e = new NotValidExeption();
         if(compteToCreate == null) e.getMessages().add("CompteModel : Null");
-        else if(compteToCreate.getSolde() < 0) e.getMessages().add("solde incorrect");
+        else
+        {   if(compteToCreate.getSolde() < 0) e.getMessages().add("solde incorrect");
+        }
         if(!e.getMessages().isEmpty()) throw e;
+
     }
 }
 

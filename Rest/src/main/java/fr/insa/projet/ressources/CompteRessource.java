@@ -7,6 +7,7 @@ import fr.insa.projet.services.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @RequestMapping("comptes")
 public class CompteRessource extends CommonService {

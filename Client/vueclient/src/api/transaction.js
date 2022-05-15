@@ -8,4 +8,8 @@ export default class TransactionApi{
             'Access-Control-Allow-Origin':'*'
             }})
     }
+    static postTransaction(transaction)
+    {
+        return Vue.http.post(`${API_BASE_URL}/transaction`, transaction)
+    }
 }
